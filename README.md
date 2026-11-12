@@ -1,6 +1,6 @@
 # Tasnim Islam · Portfolio
 
-A one-page portfolio built with Next.js (App Router), React, TypeScript and Sass, using an Apple-inspired design.
+A one-page portfolio for Tasnim Islam, senior Shopify theme developer. Built with Next.js (App Router), React and Tailwind CSS. Dark, minimal, and written in JavaScript.
 
 ## Run it locally
 
@@ -21,44 +21,48 @@ npm run lint     # ESLint
 
 ## Edit the content
 
-All text, brands, projects, skills and experience live in **`src/data/profile.ts`**. You don't need to touch any component.
+All copy, brands, projects, skills and experience live in **`src/data/profile.js`**. The typing editor’s sample theme files live in **`src/data/snippets.js`**.
 
-- `profile`: name, role, hero text, email, social links and availability.
-- `navItems`: the menu links (each `id` matches a section id).
-- `brands`: the brand strip. Every brand needs a `url`. Add `ukUrl` to show a "UK store" link.
-- `projects`: case-study cards and the detail modal. The filter buttons come from each project's `category`. Set `link` to `{ label, href }` to show a button in the modal.
-- `skillTiles`: the bento grid. `size` can be `"large"`, `"wide"` or `"small"`, and `snippet` is optional code shown on a tile.
-- `experience`: the timeline.
-- `testimonials`: the section stays hidden until a quote no longer starts with "Add".
+Placeholders are obvious. Replace them before you treat the site as final:
 
-Anything that starts with **"Add …"**, plus `you@example.com` and the `your-username` / `your-profile` social links, is a placeholder. Replace it with real details before you publish.
+- Email: `hello@yourdomain.com`
+- LinkedIn: `https://www.linkedin.com/in/your-profile`
+- X: `https://x.com/your-handle`
+- Availability: `Add your availability`
+- Experience dates: `Add dates` on both roles
+- Project results: `Add result` on all four case studies
 
-## Wire up the contact form
+GitHub is already set to https://github.com/tasnimhdh. Client themes do not have public repos, so the cards say **Private client repo**.
 
-The form validates in the browser and shows a success message. It doesn't send anything yet. To connect it, edit `submitContact` in `src/lib/submitContact.ts`: post to a Next.js route handler, Formspree, Resend or similar, and throw an error if sending fails so the form shows its error state.
+Do not invent metrics, testimonials, employers or dates. The eight brands are ForChics (US and UK), Quia Beauty (US and UK), LiftLab, and the HDH brands That Hair, Elire Skincare, Bleame, Remi and YouZu.
 
-## Design tokens
+## Screenshots
 
-Colours (light and dark), fonts, type sizes, spacing, radii and breakpoints are all in `src/styles/_tokens.scss`. `src/styles/globals.scss` turns them into CSS custom properties. Each component has its own `*.module.scss` file next to it.
+`public/brands/` holds homepage captures from the live stores: a 1440×900 desktop shot and a 390×844 mobile shot for each, saved as WebP. They are shown inside the case-study frames and in the brands gallery. Retake them from the public sites if a store’s homepage changes. Do not draw fake storefronts over them.
 
-The theme toggle saves the choice in `localStorage` (`tasnim-theme`). On a first visit the site follows the system setting.
+## Contact form
 
-## Deploy to Vercel
+The form checks name, email and message in the browser, then opens a `mailto:` draft to the address in `profile.email`. Swap that address when the real inbox is ready. There is no server route yet.
 
-1. Push this folder to a GitHub repository.
-2. Go to https://vercel.com/new, import the repository and keep the default settings (Framework: Next.js, Build command: `next build`).
-3. Click **Deploy**. Every push to the main branch redeploys the site automatically.
+## Keyboard
 
-You can also deploy from the terminal with `npx vercel` and then `npx vercel --prod`.
+- Skip link to the main content
+- `Ctrl` or `Cmd` + `K` opens the command palette (sections, copy email, GitHub, live stores)
+- Project and brand screenshots open in a dialog; `Escape` closes it
+
+Animations, the typing editor and the circuit backdrop stay still when `prefers-reduced-motion` is set. The editor then shows each file in full.
+
+## Deploy
+
+Push to `main`. The Vercel project builds with `next build` and redeploys from that branch.
 
 ## Structure
 
 ```
-src/
-  app/            layout.tsx (fonts, theme script), page.tsx (sections)
-  components/     one folder per section: Nav, Hero, BrandStrip, Projects, Skills, Experience, Testimonials, Contact, Footer, BackToTop, Reveal
-  data/profile.ts all site content
-  hooks/          useScrollSpy, useTheme
-  lib/            scroll helper, theme init script, submitContact
-  styles/         _tokens.scss, globals.scss
+src/app/            layout, page, global CSS
+src/components/     sections, editor, lightbox
+src/components/svg/ hand-written icons and frames
+src/data/           profile.js, snippets.js
+src/lib/            highlight, scroll, mailto
+public/brands/      real homepage screenshots
 ```
