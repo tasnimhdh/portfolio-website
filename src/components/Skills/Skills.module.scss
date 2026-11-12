@@ -1,0 +1,98 @@
+@use "../../styles/tokens" as *;
+
+.bento {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @include from("sm") {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include from("lg") {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-5);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(18rem circle at var(--glow-x, 50%) var(--glow-y, 0%), var(--color-accent-soft), transparent 60%),
+    var(--color-surface);
+  box-shadow: 0 1px 2px var(--color-shadow);
+  transition: transform 0.2s ease-out, box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-card);
+}
+
+.large {
+  @include from("sm") {
+    grid-column: span 2;
+  }
+
+  @include from("lg") {
+    grid-row: span 2;
+  }
+}
+
+.wide {
+  @include from("sm") {
+    grid-column: span 2;
+  }
+}
+
+.large .title {
+  font-size: var(--text-xl);
+}
+
+.title {
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.description {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: auto 0 0;
+  padding: var(--space-2) 0 0;
+  list-style: none;
+}
+
+.pill {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-alt);
+  font-size: var(--text-xs);
+  font-weight: 500;
+}
+
+.snippet {
+  margin: var(--space-3) 0 0;
+  padding: var(--space-4);
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-alt);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.6;
+}

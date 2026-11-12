@@ -1,0 +1,148 @@
+@use "../../styles/tokens" as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--color-surface-glass);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  max-width: var(--container);
+  height: var(--nav-height);
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.brand:hover {
+  text-decoration: none;
+}
+
+.monogram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-text);
+  color: var(--color-bg);
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+.links {
+  display: none;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @include from("md") {
+    display: flex;
+  }
+}
+
+.link {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  transition: color 0.2s ease;
+}
+
+.link:hover,
+.link[aria-current="true"] {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.link[aria-current="true"] {
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.iconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.iconButton:hover {
+  background: var(--color-accent-soft);
+}
+
+.cta {
+  display: none;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--color-accent-strong);
+  color: var(--color-on-accent);
+  font-size: var(--text-sm);
+  font-weight: 500;
+
+  @include from("md") {
+    display: inline-flex;
+  }
+}
+
+.cta:hover {
+  text-decoration: none;
+}
+
+.menuButton {
+  @include from("md") {
+    display: none;
+  }
+}
+
+.mobileMenu {
+  overflow: hidden;
+  border-top: 1px solid var(--color-border);
+}
+
+.mobileList {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: var(--space-3) var(--space-5) var(--space-5);
+  list-style: none;
+}
+
+.mobileLink {
+  display: flex;
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+  font-size: var(--text-lg);
+  font-weight: 500;
+}
+
+.mobileLink[aria-current="true"] {
+  color: var(--color-accent);
+}
