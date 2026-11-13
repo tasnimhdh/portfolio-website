@@ -35,7 +35,7 @@ export const snippets = [
 }
 
 .product-hero__price {
-  color: #3b82f6;
+  color: #f97316;
   font-weight: 600;
 }
 

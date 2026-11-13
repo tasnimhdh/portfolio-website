@@ -1,6 +1,7 @@
 import { skillGroups } from "@/data/profile";
 import CodeEditor from "@/components/CodeEditor";
 import SectionHeading from "@/components/SectionHeading";
+import SkillRadar from "@/components/SkillRadar";
 import Icon from "@/components/svg/Icon";
 
 export default function Skills() {
@@ -11,14 +12,16 @@ export default function Skills() {
           From Liquid and section schema to React and Next.js.
         </SectionHeading>
 
-        <div className="spotlight rounded-lg border border-line bg-surface p-4 sm:p-5">
+        <SkillRadar />
+
+        <div className="spotlight hud-card rounded-lg border border-line bg-surface p-4 sm:p-5">
           <p className="mb-4 text-sm text-muted">Example Online Store 2.0 files for a product hero section.</p>
           <CodeEditor label="Skills theme files" />
         </div>
 
         <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {skillGroups.map((group) => (
-            <li key={group.id} className="spotlight flex flex-col gap-4 rounded-lg border border-line bg-surface p-5">
+          {skillGroups.map((group, index) => (
+            <li key={group.id} data-tilt className="reveal spotlight hud-card flex flex-col gap-4 rounded-lg border border-line bg-surface p-5" style={{ "--d": `${index * 70}ms` }}>
               <h3 className="flex items-center gap-2 text-base font-semibold text-ink">
                 <Icon name={group.icon} className="h-4 w-4 text-accent" />
                 {group.title}

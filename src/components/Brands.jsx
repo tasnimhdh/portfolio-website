@@ -21,7 +21,7 @@ export default function Brands() {
           {brands.map((brand) => {
             const label = brandLabel(brand);
             return (
-              <li key={brand.id} className="spotlight group rounded-lg border border-line bg-surface p-3">
+              <li key={brand.id} data-tilt className="reveal spotlight hud-card group rounded-lg border border-line bg-surface p-3">
                 <button type="button" className="gallery-device" onClick={() => setOpen({ shot: brand, view: "desktop" })}>
                   <svg className="gallery-chrome" viewBox="0 0 320 28" preserveAspectRatio="none" aria-hidden="true">
                     <rect width="320" height="28" fill="#141416" />

@@ -9,6 +9,7 @@ import { NodeMark } from "@/components/svg/Marks";
 export default function Experience() {
   const sectionRef = useRef(null);
   const pathRef = useRef(null);
+  const beamRef = useRef(null);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -17,10 +18,14 @@ export default function Experience() {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const length = path.getTotalLength();
     path.style.strokeDasharray = `${length}`;
+    const beam = beamRef.current;
+    const beamLength = beam ? beam.getTotalLength() : length;
+    if (beam) beam.style.strokeDasharray = `${beamLength}`;
     const items = [...section.querySelectorAll(".timeline-item")];
 
     const paint = (progress) => {
       path.style.strokeDashoffset = `${length * (1 - progress)}`;
+      if (beam) beam.style.strokeDashoffset = `${beamLength * (1 - progress)}`;
       items.forEach((item) => {
         const top = item.getBoundingClientRect().top;
         item.classList.toggle("is-lit", reduce || top < window.innerHeight * 0.72);
@@ -62,6 +67,7 @@ export default function Experience() {
         </div>
         <div className="timeline lg:w-3/5">
           <svg className="timeline-svg" viewBox="0 0 32 100" preserveAspectRatio="none" aria-hidden="true">
+            <path ref={beamRef} className="timeline-beam" d="M16 0 V100" vectorEffect="non-scaling-stroke" />
             <path ref={pathRef} className="timeline-path" d="M16 0 V100" vectorEffect="non-scaling-stroke" />
           </svg>
           <ol className="flex flex-col gap-10">

@@ -10,6 +10,9 @@ export default function Nav() {
   const [activeId, setActiveId] = useState("");
   const buttonRef = useRef(null);
   const panelRef = useRef(null);
+  const navRef = useRef(null);
+  const barRef = useRef(null);
+  const linkRefs = useRef({});
 
   useEffect(() => {
     const sections = navItems.map((item) => document.getElementById(item.id)).filter(Boolean);
@@ -25,6 +28,22 @@ export default function Nav() {
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    const place = () => {
+      const link = linkRefs.current[activeId];
+      const bar = barRef.current;
+      const nav = navRef.current;
+      if (!link || !bar || !nav) return;
+      const navBox = nav.getBoundingClientRect();
+      const linkBox = link.getBoundingClientRect();
+      bar.style.width = `${linkBox.width}px`;
+      bar.style.transform = `translateX(${linkBox.left - navBox.left}px)`;
+    };
+    place();
+    window.addEventListener("resize", place);
+    return () => window.removeEventListener("resize", place);
+  }, [activeId]);
 
   useEffect(() => {
     const closeMenu = () => setOpen(false);
@@ -52,18 +71,22 @@ export default function Nav() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line/80 bg-canvas/80 backdrop-blur-md">
+    <header className="site-nav sticky top-0 z-50 border-b">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-5">
         <a href="#top" className="shrink-0 text-sm font-semibold text-ink no-underline" onClick={(event) => go(event, "top")}>
           {profile.name}
         </a>
 
-        <nav className="hidden items-center gap-6 lg:flex" aria-label="Main">
+        <nav ref={navRef} className="relative hidden items-center gap-6 lg:flex" aria-label="Main">
+          <span ref={barRef} className="nav-indicator" aria-hidden="true" />
           {navItems.map((item) => (
             <a
               key={item.id}
+              ref={(node) => {
+                linkRefs.current[item.id] = node;
+              }}
               href={`#${item.id}`}
-              className={`group inline-flex items-center gap-1.5 text-sm no-underline ${
+              className={`group relative inline-flex items-center gap-1.5 pb-1 text-sm no-underline ${
                 activeId === item.id ? "font-medium text-ink" : "text-muted hover:text-ink"
               }`}
               aria-current={activeId === item.id ? "true" : undefined}

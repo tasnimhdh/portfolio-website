@@ -23,7 +23,7 @@ export default function Projects() {
           {projects.map((project, index) => {
             const shots = project.brandIds.map(brandById).filter(Boolean);
             return (
-              <li key={project.id} className="project-card spotlight">
+              <li key={project.id} data-tilt className="project-card spotlight hud-card reveal" style={{ "--d": `${index * 80}ms` }}>
                 <span className="project-border" aria-hidden="true" />
                 <div className="relative z-10 flex h-full flex-col gap-4 p-4 sm:p-5">
                   <ShotStage shots={shots} onOpen={(shot, view) => setOpen({ shot, view })} />

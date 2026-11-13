@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { profile } from "@/data/profile";
 import { copyText, scrollToId } from "@/lib/scroll";
 import CodeEditor from "@/components/CodeEditor";
+import HeroField from "@/components/HeroField";
 import Placeholder from "@/components/Placeholder";
+import ScrambleText from "@/components/ScrambleText";
 import HeroCircuit from "@/components/svg/HeroCircuit";
 import Icon from "@/components/svg/Icon";
 
@@ -45,15 +47,21 @@ export default function Hero() {
 
   return (
     <section id="top" ref={sectionRef} className="hero" tabIndex={-1} aria-labelledby="hero-title">
+      <HeroField />
       <HeroCircuit glowRef={glowRef} />
+      <div className="hero-scan" aria-hidden="true" />
+      <div className="hero-sheen" aria-hidden="true" />
       <div className="relative z-10 mx-auto flex max-w-6xl flex-col gap-12 px-5 pb-20 pt-16 lg:flex-row lg:items-center lg:gap-16 lg:pb-28 lg:pt-24">
         <div className="flex min-w-0 flex-1 flex-col gap-6">
           <p className="text-sm font-medium text-accent">
             {profile.pronouns} · {profile.location}
           </p>
           <h1 id="hero-title" className="text-4xl font-semibold tracking-tight text-ink sm:text-5xl lg:text-6xl">
-            {profile.name}
-            <span className="mt-3 block text-2xl font-medium tracking-tight text-muted sm:text-3xl">{profile.role}</span>
+            <span className="sr-only">
+              {profile.name}. {profile.role}
+            </span>
+            <ScrambleText text={profile.name} className="block" />
+            <ScrambleText text={profile.role} className="mt-3 block text-2xl font-medium tracking-tight text-muted sm:text-3xl" />
           </h1>
           <p className="text-sm text-muted sm:text-base">
             {profile.companyRole}, {profile.company}

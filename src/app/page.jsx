@@ -11,6 +11,10 @@ import Hero from "@/components/Hero";
 import Nav from "@/components/Nav";
 import Projects from "@/components/Projects";
 import Skills from "@/components/Skills";
+import BootIntro from "@/components/BootIntro";
+import CursorGlow from "@/components/CursorGlow";
+import MotionLayer from "@/components/MotionLayer";
+import ProgressRail from "@/components/ProgressRail";
 import NoiseOverlay from "@/components/svg/NoiseOverlay";
 
 export default function Home() {
@@ -32,6 +36,10 @@ export default function Home() {
       <a className="skip-link" href="#main">
         Skip to content
       </a>
+      <BootIntro />
+      <CursorGlow />
+      <MotionLayer />
+      <ProgressRail />
       <NoiseOverlay />
       <Nav />
       <main id="main">
