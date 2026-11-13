@@ -765,10 +765,58 @@ textarea.field-input {
 }
 
 .site-nav {
-  background: rgba(9, 9, 11, 0.62);
-  border-bottom-color: rgba(249, 115, 22, 0.22);
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.nav-pill {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(11, 12, 11, 0.72);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.28);
-  backdrop-filter: blur(18px) saturate(150%);
+  backdrop-filter: blur(18px) saturate(140%);
+}
+
+.marquee {
+  overflow: hidden;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 2.5rem;
+  animation: marquee 36s linear infinite;
+}
+
+.marquee-track.is-reverse {
+  animation-direction: reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+.marquee-item {
+  color: #fafafa;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.marquee-item::before {
+  content: "";
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-right: 0.75rem;
+  border-radius: 999px;
+  background: #f97316;
+  vertical-align: 0.05em;
 }
 
 .nav-indicator {
@@ -1277,18 +1325,8 @@ textarea.field-input {
   background: linear-gradient(to bottom, transparent, rgba(249, 115, 22, 0.28), transparent);
 }
 
-@media (hover: hover) and (pointer: fine) and (min-width: 768px) {
-  html.has-reticle,
-  html.has-reticle body,
-  html.has-reticle a,
-  html.has-reticle button {
-    cursor: none;
-  }
-
-  html.has-reticle input,
-  html.has-reticle textarea {
-    cursor: text;
-  }
+.reticle {
+  opacity: 0.85;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -1364,6 +1402,10 @@ textarea.field-input {
   .browser-screen::after {
     animation: none;
   }
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
 }
 
 @keyframes grid-scroll {

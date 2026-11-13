@@ -32,8 +32,8 @@ export default function Experience() {
               <motion.li
                 key={item.id}
                 className="timeline-item is-lit"
-                initial={reduce ? false : { opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={reduce ? false : { y: 16 }}
+                whileInView={{ y: 0 }}
                 viewport={{ once: true, margin: "0px 0px -40px 0px", amount: 0.2 }}
                 transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
               >

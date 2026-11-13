@@ -16,8 +16,10 @@ import BootIntro from "@/components/BootIntro";
 import CursorGlow from "@/components/CursorGlow";
 import MotionLayer from "@/components/MotionLayer";
 import ProgressRail from "@/components/ProgressRail";
-import HudOverlay from "@/components/HudOverlay";
+import GitHubActivity from "@/components/GitHubActivity";
+import Marquee from "@/components/Marquee";
 import NoiseOverlay from "@/components/svg/NoiseOverlay";
+import SmoothScroll from "@/components/SmoothScroll";
 
 export default function Home() {
   useEffect(() => {
@@ -41,17 +43,19 @@ export default function Home() {
       <BootIntro />
       <CursorGlow />
       <MotionLayer />
+      <SmoothScroll />
       <ProgressRail />
       <NoiseOverlay />
-      <HudOverlay />
       <Nav />
       <main id="main">
         <Hero />
+        <Marquee />
         <About />
         <Projects />
         <Brands />
         <Skills />
         <Lab />
+        <GitHubActivity />
         <Experience />
         <Contact />
       </main>

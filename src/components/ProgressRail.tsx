@@ -8,6 +8,7 @@ const stops = [
   { id: "top", label: "Top" },
   { id: "about", label: "About" },
   { id: "projects", label: "Projects" },
+  { id: "activity", label: "Activity" },
   { id: "brands", label: "Brands" },
   { id: "skills", label: "Skills" },
   { id: "lab", label: "Lab" },

@@ -15,7 +15,7 @@ export default function CursorGlow() {
     const wide = window.matchMedia("(min-width: 768px)").matches;
     if (reduce || !fine || !wide) return undefined;
 
-    document.documentElement.classList.add("has-reticle");
+    document.documentElement.classList.remove("has-reticle");
     let frame = 0;
     let x = window.innerWidth / 2;
     let y = window.innerHeight / 3;
@@ -38,7 +38,6 @@ export default function CursorGlow() {
     frame = requestAnimationFrame(paint);
     window.addEventListener("pointermove", onMove, { passive: true });
     return () => {
-      document.documentElement.classList.remove("has-reticle");
       window.removeEventListener("pointermove", onMove);
       cancelAnimationFrame(frame);
     };

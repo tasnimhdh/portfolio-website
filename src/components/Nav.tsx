@@ -65,6 +65,8 @@ export default function Nav() {
     return () => document.removeEventListener("keydown", onKey);
   }, [open]);
 
+  const links = [navItems[0], navItems[1], { id: "activity", label: "Activity", icon: "github" }, ...navItems.slice(2)];
+
   const go = (event: any, id: any) => {
     event.preventDefault();
     setOpen(false);
@@ -72,15 +74,15 @@ export default function Nav() {
   };
 
   return (
-    <header className="site-nav sticky top-0 z-50 border-b">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-5">
+    <header className="site-nav sticky top-3 z-50 px-3 sm:px-5">
+      <div className="nav-pill mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 px-3 sm:px-4">
         <a href="#top" className="shrink-0 text-sm font-semibold text-ink no-underline" onClick={(event) => go(event, "top")}>
           {profile.name}
         </a>
 
         <nav ref={navRef} className="relative hidden items-center gap-6 lg:flex" aria-label="Main">
           <span ref={barRef} className="nav-indicator" aria-hidden="true" />
-          {navItems.map((item) => (
+          {links.map((item) => (
             <a
               key={item.id}
               ref={(node) => {
@@ -135,7 +137,7 @@ export default function Nav() {
       {open ? (
         <div id="mobile-menu" ref={panelRef} className="border-t border-line lg:hidden">
           <ul className="mx-auto flex max-w-6xl flex-col px-5 py-2">
-            {navItems.map((item) => (
+            {links.map((item) => (
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}

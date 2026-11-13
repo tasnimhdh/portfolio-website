@@ -5,10 +5,20 @@ import { snippets } from "@/data/snippets";
 import { caretPosition, tokenize } from "@/lib/highlight";
 import Icon from "@/components/svg/Icon";
 
+function prefillIndex(code: string) {
+  let lines = 0;
+  let index = 0;
+  while (index < code.length && lines < 12) {
+    if (code[index] === "\n") lines += 1;
+    index += 1;
+  }
+  return index;
+}
+
 export default function CodeEditor({ label = "Theme files" }) {
   const baseId = useId();
   const [fileIndex, setFileIndex] = useState(0);
-  const [cursor, setCursor] = useState(0);
+  const [cursor, setCursor] = useState(() => prefillIndex(snippets[0].code));
   const pausedRef = useRef(false);
   const manualRef = useRef(false);
   const visibleRef = useRef(true);
@@ -41,9 +51,9 @@ export default function CodeEditor({ label = "Theme files" }) {
       return undefined;
     }
 
-    let position = 0;
+    let position = prefillIndex(code);
     let timer = 0;
-    setCursor(0);
+    setCursor(position);
 
     const tick = () => {
       if (manualRef.current) return;
