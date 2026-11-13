@@ -349,18 +349,29 @@ textarea.field-input {
   height: auto;
 }
 
-.timeline {
+.timeline-shell {
   position: relative;
-  padding-left: 2.25rem;
+  min-width: 0;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .timeline-svg {
   position: absolute;
-  top: 0;
+  top: 0.55rem;
   bottom: 0;
-  left: 0;
-  width: 2rem;
-  height: 100%;
+  left: 1.15rem;
+  width: 0.7rem;
+  height: auto;
+  overflow: hidden;
+  pointer-events: none;
 }
 
 .timeline-path {
@@ -372,20 +383,45 @@ textarea.field-input {
 .timeline-beam {
   fill: none;
   stroke: var(--color-glow);
-  stroke-width: 7;
-  opacity: 0.45;
+  stroke-width: 4;
+  opacity: 0.55;
 }
 
 .timeline-item {
-  position: relative;
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 1fr);
+  column-gap: 1rem;
+  align-items: start;
+}
+
+.timeline-gutter {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.15rem;
+}
+
+.timeline-copy {
+  min-width: 0;
 }
 
 .timeline-node {
-  position: absolute;
-  top: 0.15rem;
-  left: -2.05rem;
+  position: relative;
+  top: auto;
+  left: auto;
   width: 1rem;
   height: 1rem;
+  flex: none;
+}
+
+@media (min-width: 640px) {
+  .timeline-item {
+    grid-template-columns: 3.25rem minmax(0, 1fr);
+    column-gap: 1.25rem;
+  }
+
+  .timeline-svg {
+    left: 1.4rem;
+  }
 }
 
 .node-ring,
@@ -832,6 +868,17 @@ textarea.field-input {
   transform: translateY(-50%);
 }
 
+.progress-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0.12rem;
+  width: 2px;
+  transform-origin: top center;
+  background: linear-gradient(#f59e0b, #f97316);
+  pointer-events: none;
+}
+
 .progress-rail a {
   width: 0.45rem;
   height: 0.45rem;
@@ -848,12 +895,18 @@ textarea.field-input {
 
 .boot-overlay {
   position: fixed;
-  inset: 0;
-  z-index: 90;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 80;
   display: flex;
-  align-items: flex-end;
-  background: #09090b;
-  padding: 8vh 8vw;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: min(22rem, calc(100vw - 2rem));
+  padding: 1rem;
+  pointer-events: none;
+  border: 1px solid rgba(249, 115, 22, 0.45);
+  border-radius: 0.75rem;
+  background: rgba(9, 9, 11, 0.92);
 }
 
 .boot-line {
@@ -869,9 +922,9 @@ textarea.field-input {
 }
 
 .boot-skip {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+  position: static;
+  align-self: flex-end;
+  pointer-events: auto;
 }
 
 .radar {
@@ -914,17 +967,15 @@ textarea.field-input {
   letter-spacing: -0.04em;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .reveal {
-    opacity: 0;
-    transform: translateY(18px);
-  }
+.reveal {
+  opacity: 1;
+  transform: none;
+}
 
+@media (prefers-reduced-motion: no-preference) {
   .reveal.is-in {
     opacity: 1;
     transform: none;
-    transition: opacity 0.7s ease, transform 0.7s ease;
-    transition-delay: var(--d, 0ms);
   }
 
   .nav-indicator {
@@ -1015,4 +1066,328 @@ textarea.field-input {
 
 @keyframes radar-spin {
   to { transform: rotate(360deg); }
+}
+
+.hero-webgl-wrap,
+.hero-webgl {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hero-webgl {
+  z-index: 0;
+}
+
+.tron-floor {
+  position: absolute;
+  left: -8%;
+  right: -8%;
+  bottom: -8%;
+  z-index: 1;
+  height: 46%;
+  overflow: hidden;
+  pointer-events: none;
+  perspective: 420px;
+  mask-image: linear-gradient(to top, #09090b 12%, transparent 78%);
+}
+
+.tron-grid {
+  position: absolute;
+  inset: 10% -20% -40%;
+  background-image:
+    linear-gradient(rgba(249, 115, 22, 0.45) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(249, 115, 22, 0.45) 1px, transparent 1px);
+  background-size: 52px 52px;
+  transform: rotateX(72deg);
+  transform-origin: center top;
+}
+
+.tron-beam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 22%;
+  background: linear-gradient(to bottom, transparent, rgba(251, 146, 60, 0.55), transparent);
+}
+
+.aurora {
+  position: absolute;
+  inset: auto 0 10% 0;
+  z-index: 1;
+  height: 40%;
+  pointer-events: none;
+  background:
+    radial-gradient(40% 80% at 20% 80%, rgba(249, 115, 22, 0.2), transparent 70%),
+    radial-gradient(36% 70% at 80% 70%, rgba(245, 158, 11, 0.16), transparent 70%);
+  filter: blur(8px);
+}
+
+.hud {
+  position: fixed;
+  inset: 0;
+  z-index: 35;
+  pointer-events: none;
+}
+
+.hud-frame {
+  position: absolute;
+  inset: 0.55rem;
+  border: 1px solid rgba(249, 115, 22, 0.28);
+  background:
+    linear-gradient(#f97316, #f97316) left 8px top / 18px 1px no-repeat,
+    linear-gradient(#f97316, #f97316) left top 8px / 1px 18px no-repeat,
+    linear-gradient(#f97316, #f97316) right 8px top / 18px 1px no-repeat,
+    linear-gradient(#f97316, #f97316) right top 8px / 1px 18px no-repeat,
+    linear-gradient(#f97316, #f97316) left 8px bottom / 18px 1px no-repeat,
+    linear-gradient(#f97316, #f97316) left bottom 8px / 1px 18px no-repeat,
+    linear-gradient(#f97316, #f97316) right 8px bottom / 18px 1px no-repeat,
+    linear-gradient(#f97316, #f97316) right bottom 8px / 1px 18px no-repeat;
+}
+
+.hud-readout {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  color: #fb923c;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+.hud-tl { top: 4.6rem; left: 1rem; }
+.hud-tr { top: 4.6rem; right: 1.4rem; text-align: right; }
+.hud-bl { bottom: 1rem; left: 1rem; }
+.hud-br { bottom: 1rem; right: 1.4rem; }
+
+.reticle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  width: 1.4rem;
+  height: 1.4rem;
+  margin: -0.7rem 0 0 -0.7rem;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.reticle span {
+  position: absolute;
+  background: #f97316;
+  box-shadow: 0 0 8px rgba(249, 115, 22, 0.8);
+}
+
+.reticle span:first-child {
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 100%;
+}
+
+.reticle span:last-child {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+}
+
+.glitch {
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.holo {
+  position: relative;
+}
+
+.data-stream {
+  position: absolute;
+  inset: 8% 4%;
+  z-index: 0;
+  width: 92%;
+  height: 84%;
+  pointer-events: none;
+}
+
+.data-stream path {
+  fill: none;
+  stroke: rgba(249, 115, 22, 0.45);
+  stroke-width: 0.4;
+  stroke-dasharray: 4 6;
+}
+
+.skill-net {
+  position: relative;
+  height: 18rem;
+  overflow: hidden;
+  border: 1px solid rgba(249, 115, 22, 0.28);
+  border-radius: 0.75rem;
+  background: radial-gradient(circle at 50% 50%, rgba(249, 115, 22, 0.08), transparent 62%);
+  touch-action: pan-y;
+}
+
+.skill-net svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.skill-net-line {
+  stroke: #f97316;
+  stroke-width: 0.35;
+  stroke-dasharray: 2 2;
+}
+
+.skill-net-node {
+  position: absolute;
+  z-index: 1;
+  max-width: 8.5rem;
+  transform: translate(-50%, -50%);
+  border: 1px solid #f97316;
+  border-radius: 999px;
+  background: rgba(9, 9, 11, 0.88);
+  color: #fafafa;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.72rem;
+  line-height: 1.2;
+  cursor: grab;
+}
+
+.browser-screen::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  height: 22%;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, rgba(249, 115, 22, 0.28), transparent);
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 768px) {
+  html.has-reticle,
+  html.has-reticle body,
+  html.has-reticle a,
+  html.has-reticle button {
+    cursor: none;
+  }
+
+  html.has-reticle input,
+  html.has-reticle textarea {
+    cursor: text;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tron-grid {
+    animation: grid-scroll 7s linear infinite;
+  }
+
+  .tron-beam {
+    animation: beam-scan 4.8s linear infinite;
+  }
+
+  .aurora {
+    animation: aurora 10s ease-in-out infinite alternate;
+  }
+
+  .glitch::before,
+  .glitch::after {
+    animation: glitch-split 5.2s infinite;
+  }
+
+  .glitch::before { color: #fb923c; }
+  .glitch::after { color: #f59e0b; animation-delay: 0.08s; }
+
+  .neon-flicker {
+    animation: neon-flicker 6s infinite;
+  }
+
+  .scan-shot {
+    clip-path: none;
+  }
+
+  .skill-net.is-live .skill-net-line,
+  .data-stream path,
+  .reveal.is-in .browser-screen::after {
+    animation: flow 2.6s linear infinite;
+  }
+
+  .reveal.is-in .browser-screen::after {
+    animation: beam-scan 3.4s linear infinite;
+  }
+}
+
+@media (max-width: 767px) {
+  .hud-readout,
+  .tron-beam,
+  .data-stream,
+  .reticle,
+  .cursor-glow {
+    display: none;
+  }
+
+  .tron-floor {
+    height: 28%;
+  }
+
+  .skill-net {
+    height: 16rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .holo::before,
+  .tron-beam,
+  .glitch::before,
+  .glitch::after {
+    display: none;
+  }
+
+  .tron-grid,
+  .aurora,
+  .neon-flicker,
+  .skill-net-line,
+  .browser-screen::after {
+    animation: none;
+  }
+}
+
+@keyframes grid-scroll {
+  to { background-position: 0 52px; }
+}
+
+@keyframes beam-scan {
+  from { top: -20%; }
+  to { top: 110%; }
+}
+
+@keyframes aurora {
+  from { transform: translate3d(-2%, 0, 0); }
+  to { transform: translate3d(2%, -4%, 0); }
+}
+
+@keyframes glitch-split {
+  0%, 84%, 100% { opacity: 0; transform: none; }
+  86% { opacity: 0.85; transform: translate(-3px, 0); clip-path: inset(10% 0 55% 0); }
+  90% { opacity: 0.7; transform: translate(3px, 1px); clip-path: inset(48% 0 12% 0); }
+  94% { opacity: 0; }
+}
+
+@keyframes neon-flicker {
+  0%, 17%, 19%, 54%, 56%, 100% { opacity: 1; text-shadow: 0 0 10px rgba(249, 115, 22, 0.55); }
+  18%, 55% { opacity: 0.55; text-shadow: none; }
 }
